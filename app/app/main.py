@@ -1,0 +1,1 @@
+print("BronlaDacha ishga tushdi!")
