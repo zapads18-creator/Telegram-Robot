@@ -1,32 +1,22 @@
+
 import asyncio
 import os
 
 from aiogram import Bot, Dispatcher
-from aiogram.client.default import DefaultBotProperties
-from aiogram.enums import ParseMode
-
-from app.handlers.start import router
+from aiogram.filters import CommandStart
+from aiogram.types import Message
 
 
 async def main():
-    token = os.getenv("BOT_TOKEN")
-
-    if not token:
-        print("❌ BOT_TOKEN topilmadi")
-        return
-
-    bot = Bot(
-        token=token,
-        default=DefaultBotProperties(
-            parse_mode=ParseMode.HTML
-        )
-    )
+    bot = Bot(token=os.getenv("BOT_TOKEN"))
 
     dp = Dispatcher()
 
-    dp.include_router(router)
+    @dp.message(CommandStart())
+    async def start(message: Message):
+        await message.answer("🏡 TezDacha ishlayapti!")
 
-    print("🚀 TezDacha ishga tushdi")
+    print("🚀 Bot ishga tushdi")
 
     await dp.start_polling(bot)
 
