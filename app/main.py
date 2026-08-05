@@ -1,4 +1,5 @@
 import asyncio
+import os
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
@@ -8,14 +9,18 @@ from app.handlers.start import router
 
 
 async def main():
-    import os
+    token = os.getenv("BOT_TOKEN")
 
-bot = Bot(
-    token=os.getenv("BOT_TOKEN"),
-    default=DefaultBotProperties(
-        parse_mode=ParseMode.HTML
+    if not token:
+        print("❌ BOT_TOKEN topilmadi")
+        return
+
+    bot = Bot(
+        token=token,
+        default=DefaultBotProperties(
+            parse_mode=ParseMode.HTML
+        )
     )
-)
 
     dp = Dispatcher()
 
