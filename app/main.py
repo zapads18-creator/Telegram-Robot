@@ -8,12 +8,14 @@ from app.handlers.start import router
 
 
 async def main():
-    bot = Bot(
-        token="BOT_TOKENINGIZ",
-        default=DefaultBotProperties(
-            parse_mode=ParseMode.HTML
-        )
+    import os
+
+bot = Bot(
+    token=os.getenv("BOT_TOKEN"),
+    default=DefaultBotProperties(
+        parse_mode=ParseMode.HTML
     )
+)
 
     dp = Dispatcher()
 
